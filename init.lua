@@ -61,6 +61,7 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive',
   'tpope/vim-unimpaired',
+  'tpope/vim-vinegar',
   {
     'ChrisBrowne/terminal-toggle.nvim',
     config = function()
@@ -382,6 +383,8 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
+          map('<leader>e', vim.diagnostic.open_float, 'Show diagnostics', { 'n', 'x' })
+
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -473,6 +476,10 @@ require('lazy').setup({
                 {
                   fileMatch = { 'package.json' },
                   url = 'https://json.schemastore.org/package.json',
+                },
+                {
+                  fileMatch = { 'tsconfig*.json' },
+                  url = 'https://json.schemastore.org/tsconfig.json',
                 },
               },
             },
@@ -583,11 +590,10 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        -- Use a sub-list to run only the first available formatter
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
