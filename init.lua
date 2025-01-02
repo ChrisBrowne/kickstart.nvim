@@ -478,6 +478,10 @@ require('lazy').setup({
                   url = 'https://json.schemastore.org/package.json',
                 },
                 {
+                  fileMatch = { '.prettierrc' },
+                  url = 'https://json.schemastore.org/prettierrc.json',
+                },
+                {
                   fileMatch = { 'tsconfig*.json' },
                   url = 'https://json.schemastore.org/tsconfig.json',
                 },
@@ -571,7 +575,7 @@ require('lazy').setup({
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -591,6 +595,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Use a sub-list to run only the first available formatter
+        json = { 'prettierd', 'prettier', stop_after_first = true },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
         typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
